@@ -73,7 +73,7 @@ button {
         box-sizing: border-box;
     }
 
-a.button {
+a.button, span.button {
     background: antiquewhite;
     padding: 20px;
     border-radius: 30px;

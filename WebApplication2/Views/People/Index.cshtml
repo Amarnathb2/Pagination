@@ -32,7 +32,10 @@
                 {
                     <a href="@Url.Action("Index", new { page = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })" class="button">Previous</a>
                 }
-
+                else
+                {
+                    <span class="disabled button">Previous</span>
+                }
                 @for (int i = 1; i <= ViewBag.TotalPages; i++)
                 {
                     if (i == ViewBag.PageNumber)
@@ -53,6 +56,10 @@
                 @if (ViewBag.PageNumber < ViewBag.TotalPages)
                 {
                     <a href="@Url.Action("Index", new { page = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })" class="button">Next</a>
+                }
+                else
+                {
+                    <span class="disabled button">Next</span>
                 }
             </div>
         </div>

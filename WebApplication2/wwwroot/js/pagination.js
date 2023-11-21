@@ -7,76 +7,79 @@ const postsPerPageSelect = document.getElementById('postsPerPage');
 const paginationButtons = document.getElementById('paginationButtons');
 const pageNumbersContainer = document.getElementById('pageNumbers');
 
-    function fetchData() {
-        // Fetch data dynamically from the controller
-        fetch('/Home/GetPeopleData')
-            .then(response => response.json())
-            .then(data => {
-                // Save the fetched data globally
-                peopleData = data;
+function displayCurrentPage() {
+    const start = (currentPage - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const displayedPosts = posts.slice(start, end);
 
-                // Display the initial page
-                displayCurrentPage();
-            })
-            .catch(error => console.error('Error:', error));
-    }
+    // Clear previous content
+    postContainer.innerHTML = '';
 
-    function displayCurrentPage() {
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const displayedPeople = peopleData.slice(start, end);
+    // Create an unordered list element
+    const ul = document.createElement('ul');
 
-        // Clear previous content
-        peopleContainer.innerHTML = '';
+    // Iterate through the displayed posts and create list items
+    displayedPosts.forEach(post => {
+        const li = document.createElement('li');
+        li.textContent = `Title: ${post.title}, Body: ${post.body}`;
+        ul.appendChild(li);
+    });
 
-        // Display people data
-        displayedPeople.forEach(person => {
-            const div = document.createElement('div');
-            div.textContent = `Name: ${person.Name}, Age: ${person.Age}, City: ${person.City}`;
-            peopleContainer.appendChild(div);
-        });
+    // Append the unordered list to the container
+    postContainer.appendChild(ul);
 
-        // Update pagination buttons
-        updatePaginationButtons();
-    }
+    // Update pagination buttons
+    updatePaginationButtons();
+}
 
-    function updatePaginationButtons() {
-        const totalPages = Math.ceil(peopleData.length / itemsPerPage);
+function updatePaginationButtons() {
+    const totalPosts = posts.length;
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
 
-        // Clear previous page numbers
-        pageNumbersContainer.innerHTML = '';
+    // Clear previous page numbers
+    pageNumbersContainer.innerHTML = '';
 
-        // Display page numbers
-        for (let i = 1; i <= totalPages; i++) {
-            const pageNumberButton = document.createElement('button');
-            pageNumberButton.textContent = i;
-            pageNumberButton.onclick = function () {
-                currentPage = i;
-                displayCurrentPage();
-            };
-            pageNumbersContainer.appendChild(pageNumberButton);
-        }
-
-        // Enable/disable pagination buttons based on the current page
-        paginationButtons.querySelector('[onclick="prevPage()"]').disabled = currentPage === 1;
-        paginationButtons.querySelector('[onclick="nextPage()"]').disabled = currentPage === totalPages;
-    }
-
-    function prevPage() {
-        if (currentPage > 1) {
-            currentPage--;
+    // Display page numbers
+    for (let i = 1; i <= totalPages; i++) {
+        const pageNumberButton = document.createElement('button');
+        pageNumberButton.textContent = i;
+        pageNumberButton.onclick = function () {
+            currentPage = i;
             displayCurrentPage();
-        }
+        };
+        pageNumbersContainer.appendChild(pageNumberButton);
     }
 
-    function nextPage() {
-        const totalPages = Math.ceil(peopleData.length / itemsPerPage);
+    // Enable/disable pagination buttons based on the current page
+    paginationButtons.querySelector('[onclick="prevPage()"]').disabled = currentPage === 1;
+    paginationButtons.querySelector('[onclick="nextPage()"]').disabled = currentPage === totalPages;
+}
 
-        if (currentPage < totalPages) {
-            currentPage++;
-            displayCurrentPage();
-        }
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayCurrentPage();
     }
+}
 
-    // Fetch data when the page loads
-    fetchData();
+function nextPage() {
+    const totalPosts = posts.length;
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayCurrentPage();
+    }
+}
+
+// Your fetch code here
+fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => response.json())
+    .then(data => {
+        // Save the fetched posts globally
+        posts = data;
+
+        // Display the initial page
+        displayCurrentPage();
+    })
+    .catch(error => console.error('Error:', error));
