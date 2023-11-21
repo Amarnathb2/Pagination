@@ -1,0 +1,37 @@
+﻿<!-- Views/Home/Index.cshtml -->
+@model List<Person>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static Data Pagination Example</title>
+    
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <div id="postContainer">
+            <!-- Fetched data will be displayed here -->
+            @foreach (var person in Model)
+            {
+                <div>
+                    <p>Name: @person.Name</p>
+                    <p>Age: @person.Age</p>
+                    <p>City: @person.City</p>
+                </div>
+            }
+        </div>
+        <div id="paginationControls">
+
+            <div id="paginationButtons">
+                <button onclick="prevPage()">Previous</button>
+                <div id="pageNumbers"></div>
+                <button onclick="nextPage()">Next</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

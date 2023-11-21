@@ -1,0 +1,74 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#postContainer {
+    display: flex;
+    flex-direction: row; /* Set to 'row' to display side by side */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
+    gap: 10px;
+}
+
+    #postContainer li {
+        list-style: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 200px;
+        box-sizing: border-box;
+        display: inline flex;
+        height: 300px;
+        width: 250px;
+    }
+
+#paginationControls {
+    margin-top: 20px;
+}
+
+#paginationButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+}
+#peopleContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+    #peopleContainer div {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 200px;
+        box-sizing: border-box;
+    }

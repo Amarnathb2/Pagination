@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <div id="postContainer">
+        <!-- Fetched data will be displayed here -->
+        @if (Model != null)
+        {
+            foreach (var post in Model)
+            {
+                <p>Title: @post.Title, Body: @post.Body</p>
+            }
+        }
+    </div>
+    <div id="paginationControls">
+        
+        <div id="paginationButtons">
+            <button onclick="prevPage()">Previous</button>
+            <div id="pageNumbers"></div>
+            <button onclick="nextPage()">Next</button>
+        </div>
+    </div>
+</div>
